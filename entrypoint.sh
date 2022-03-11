@@ -41,16 +41,11 @@ fi
 
 cd $WORKDIR
 
-if [ -f requirements.txt ]; then
-    pip install -r requirements.txt
-fi # [ -f requirements.txt ]
+if [ -f $5 ]; then
+    pip install -r $5
+fi # [ -f $5 ]
 
 echo "$@"
 
-if [[ "$@" == "" ]]; then
-    pyinstaller --clean -y --dist ./dist/linux --workpath /tmp *.spec
-    chown -R --reference=. ./dist/linux
-else
-    sh -c "$@"
-fi # [[ "$@" == "" ]]
-
+pyinstaller --clean -y --dist ./dist/linux --workpath /tmp $SPEC_FILE
+chown -R --reference=. ./dist/linux
