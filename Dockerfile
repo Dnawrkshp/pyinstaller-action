@@ -2,7 +2,7 @@ FROM ubuntu:latest
 
 ENV DEBIAN_FRONTEND noninteractive
 
-ARG WINE_VERSION=winehq-staging
+ARG WINE_VERSION=winehq-stable
 ARG PYTHON_VERSION=3.10.2
 ARG PYINSTALLER_VERSION=4.9
 
@@ -50,7 +50,7 @@ RUN set -x \
     && echo 'ftype PythonScript=c:\Python37\python.exe "%1" %*' | wine cmd \
     && while pgrep wineserver >/dev/null; do echo "Waiting for wineserver"; sleep 1; done \
     && chmod +x /usr/bin/python /usr/bin/easy_install /usr/bin/pip /usr/bin/pyinstaller /usr/bin/pyupdater \
-    # && (pip install -U pip || true) \
+    && (pip install -U pip || true) \
     && rm -rf /tmp/.wine-*
 
 ENV W_DRIVE_C=/wine/drive_c
